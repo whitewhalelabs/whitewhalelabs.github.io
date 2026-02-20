@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>White Whale Labs</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg0:#020617;
+      --bg1:#081024;
+      --ink:#f8fafc;
+      --muted:#9aa9c0;
+
+      --accent0:#13b4ff;
+      --accent1:#00d4aa;
+
+      --line:rgba(255,255,255,0.10);
+      --panel:rgba(8,16,36,0.70);
+
+      --fontHead:"Space Grotesk",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      --fontBody:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:var(--fontBody);
+      background:radial-gradient(1200px 700px at 15% 10%, rgba(19,180,255,0.12), transparent 60%),
+                 radial-gradient(900px 600px at 80% 20%, rgba(0,212,170,0.10), transparent 60%),
+                 linear-gradient(180deg, var(--bg0), var(--bg1));
+      color:var(--ink);
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    button{ font-family:inherit; }
+
+    .wrap{
+      width:100%;
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    .topbar{
+      position:fixed;
+      left:0;
+      right:0;
+      top:0;
+      z-index:60;
+      padding:14px 0;
+      background:linear-gradient(180deg, rgba(2,6,23,0.85), rgba(2,6,23,0.20) 70%, transparent);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbarInner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      border:1px solid var(--line);
+      background:rgba(2,6,23,0.55);
+      padding:12px 14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .brandMark{
+      width:10px;
+      height:10px;
+      background:linear-gradient(90deg, var(--accent0), var(--accent1));
+    }
+
+    .brandText{
+      font-family:var(--fontHead);
+      font-weight:700;
+      letter-spacing:-0.02em;
+      font-size:16px;
+      white-space:nowrap;
+    }
+
+    .navDesktop{
+      display:none;
+      gap:18px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .navDesktop a:hover{ color:var(--ink); }
+
+    .topActions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--ink);
+      padding:10px 12px;
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:0.01em;
+      cursor:pointer;
+    }
+
+    .btnPrimary{
+      border-color:rgba(19,180,255,0.45);
+      background:linear-gradient(90deg, rgba(19,180,255,0.18), rgba(0,212,170,0.14));
+    }
+
+    .btn:hover{
+      border-color:rgba(255,255,255,0.22);
+    }
+
+    .btnPrimary:hover{
+      border-color:rgba(19,180,255,0.75);
+    }
+
+    .hero{
+      position:relative;
+      padding-top:96px;
+      padding-bottom:54px;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+    }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:22px;
+      padding-top:24px;
+      padding-bottom:24px;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(19,180,255,0.28);
+      background:rgba(19,180,255,0.08);
+      padding:8px 10px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color:rgba(248,250,252,0.92);
+      width:max-content;
+    }
+
+    .kicker{
+  position:relative;
+  padding-left:14px;
+}
+
+.kicker::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:2px;
+  height:12px;
+  background:linear-gradient(to bottom, var(--accent0), var(--accent1));
+}
+
+    h1,h2,h3{ font-family:var(--fontHead); margin:0; letter-spacing:-0.02em; }
+    p{ margin:0; color:var(--muted); line-height:1.65; }
+
+    .heroTitle{
+      font-size:40px;
+      line-height:1.02;
+      font-weight:800;
+      letter-spacing:-0.04em;
+    }
+
+    .heroSub{
+      font-size:16px;
+      margin-top:14px;
+      max-width:560px;
+    }
+
+    .ctaRow{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:18px;
+      width:100%;
+      max-width:520px;
+    }
+
+    .ctaRow .btn{
+      width:100%;
+      justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:13px 14px;
+      font-size:14px;
+    }
+
+    .metaRow{
+      margin-top:16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      font-size:12px;
+      color:rgba(154,169,192,0.95);
+    }
+
+    .metaPill{
+      border:1px solid var(--line);
+      background:rgba(2,6,23,0.35);
+      padding:8px 10px;
+      font-weight:600;
+    }
+
+    .section{
+      padding:56px 0;
+    }
+
+    .sectionAlt{
+      background:rgba(2,6,23,0.25);
+      border-top:1px solid rgba(255,255,255,0.06);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .sectionTitle{
+      font-size:26px;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    .sectionLead{
+      font-size:15px;
+      max-width:720px;
+    }
+
+    .gridCards{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background:var(--panel);
+      padding:18px 16px;
+    }
+
+    .cardTitle{
+      font-family:var(--fontHead);
+      font-weight:800;
+      font-size:16px;
+      margin-bottom:8px;
+    }
+
+    .cardBody{
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .divider{
+      height:1px;
+      background:rgba(255,255,255,0.06);
+      margin:18px 0;
+    }
+
+    .twoCol{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .dontList{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .dontList li{ margin-bottom:8px; }
+
+    .footer{
+      padding:28px 0;
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+
+    .footerRow{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+
+    .footerLinks{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+    }
+    .footerLinks a:hover{ color:var(--ink); }
+
+    .whaleOverlay{
+  position:fixed;
+  bottom:-40px;
+  left:-30px;
+
+  width:300px;
+  max-width:65vw;
+
+  opacity:0.12;
+
+  pointer-events:none;
+  z-index:5;
+
+  transform:translate3d(0,0,0);
+}
+      filter: blur(0.5px) contrast(1.05);
+      transform:translate3d(0,0,0);
+    }
+
+    /* Sidebar */
+    .backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      z-index:70;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 180ms ease;
+    }
+    .backdrop.open{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .sidebar{
+      position:fixed;
+      top:0;
+      right:0;
+      width:min(86vw, 360px);
+      height:100vh;
+      z-index:80;
+      background:rgba(2,6,23,0.92);
+      border-left:1px solid rgba(255,255,255,0.10);
+      transform:translate3d(100%,0,0);
+      transition:transform 220ms ease;
+      display:flex;
+      flex-direction:column;
+    }
+    .sidebar.open{
+      transform:translate3d(0,0,0);
+    }
+
+    .sidebarHeader{
+      padding:16px 16px 12px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .sidebarTitle{
+      font-family:var(--fontHead);
+      font-weight:800;
+      letter-spacing:-0.02em;
+      font-size:16px;
+    }
+
+    .sidebarBody{
+      padding:12px 16px 16px 16px;
+      overflow:auto;
+    }
+
+    .sideLink{
+      display:block;
+      padding:12px 0;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      color:rgba(248,250,252,0.92);
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .sideLink small{
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      font-weight:600;
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .sideCtas{
+      margin-top:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      background:rgba(19,180,255,0.22);
+      border:1px solid rgba(19,180,255,0.45);
+      color:var(--ink);
+      padding:10px 12px;
+      font-weight:800;
+      font-size:13px;
+      opacity:0;
+      pointer-events:none;
+      z-index:90;
+      transition:opacity 180ms ease;
+      backdrop-filter: blur(10px);
+    }
+    .toast.show{ opacity:1; }
+
+    /* Reveal system */
+    .reveal{
+      opacity:0;
+      transform:translate3d(0,14px,0);
+      transition:opacity 520ms ease, transform 520ms ease;
+      will-change:opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform:translate3d(0,0,0);
+    }
+
+    /* Option B scan reveal for hero title and key headers */
+    .scanWrap{
+      display:inline-block;
+      position:relative;
+      overflow:hidden;
+      vertical-align:bottom;
+    }
+    .scanText{
+      display:inline-block;
+      transform:translate3d(0,0,0);
+    }
+    .scanWrap::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, rgba(19,180,255,0.0), rgba(19,180,255,0.22), rgba(0,212,170,0.12), rgba(19,180,255,0.0));
+      transform:translate3d(-110%,0,0);
+      opacity:0;
+    }
+    .scanWrap.in::after{
+      opacity:1;
+      animation:scanLine 780ms ease forwards;
+    }
+    @keyframes scanLine{
+      0%{ transform:translate3d(-110%,0,0); }
+      100%{ transform:translate3d(110%,0,0); }
+    }
+
+    .scanUnderline{
+      height:1px;
+      background:linear-gradient(90deg, rgba(19,180,255,0.0), rgba(19,180,255,0.8), rgba(0,212,170,0.6), rgba(19,180,255,0.0));
+      width:0%;
+      margin-top:10px;
+      opacity:0.8;
+    }
+    .scanUnderline.in{
+      animation:underlineGrow 520ms ease forwards;
+    }
+    @keyframes underlineGrow{
+      0%{ width:0%; }
+      100%{ width:100%; }
+    }
+
+    /* Desktop */
+    @media (min-width: 900px){
+      .navDesktop{ display:flex; }
+      .heroGrid{
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items:center;
+        gap:28px;
+      }
+      .heroTitle{ font-size:62px; }
+      .ctaRow{
+        flex-direction:row;
+      }
+      .ctaRow .btn{ width:auto; }
+      .gridCards{
+        grid-template-columns:repeat(2, 1fr);
+        gap:14px;
+      }
+      .twoCol{
+        grid-template-columns:1fr 1fr;
+        gap:18px;
+      }
+      .footerRow{
+        flex-direction:row;
+        align-items:center;
+      }
+      .whaleOverlay{
+        width:340px;
+        opacity:0.13;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ transition:none; transform:none; opacity:1; }
+      .scanWrap::after{ display:none; }
+      .scanUnderline{ width:100%; }
+    }
+.footer{
+  padding:40px 0;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.footerRow{
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+.footerLeft{
+  max-width:720px;
+}
+
+.footerTag{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted);
+  letter-spacing:0.04em;
+}
+
+.footerLegal{
+  margin-top:14px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.footerDisclosure{
+  margin-top:12px;
+  font-size:11px;
+  line-height:1.6;
+  color:rgba(154,169,192,0.85);
+}
+
+.footerRight{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.footerLinks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.footerLinks a{
+  position:relative;
+  color:var(--muted);
+  transition:color 200ms ease;
+}
+
+/* underline animation */
+.footerLinks a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  height:1px;
+  width:0%;
+  background:linear-gradient(90deg, var(--accent0), var(--accent1));
+  transition:width 200ms ease;
+}
+
+.footerLinks a:hover{
+  color:var(--ink);
+}
+
+.footerLinks a:hover::after{
+  width:100%;
+}
+
+.footerExternal{
+  font-size:13px;
+  font-weight:700;
+}
+
+.footerExternal a{
+  position:relative;
+  color:var(--muted);
+  transition:color 200ms ease;
+}
+
+.footerExternal a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  height:1px;
+  width:0%;
+  background:linear-gradient(90deg, var(--accent0), var(--accent1));
+  transition:width 200ms ease;
+}
+
+.footerExternal a:hover{
+  color:var(--ink);
+}
+
+.footerExternal a:hover::after{
+  width:100%;
+}
+
+/* Desktop layout */
+@media (min-width:900px){
+  .footerRow{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+
+  .footerRight{
+    align-items:flex-end;
+  }
+
+  .footerLinks{
+    justify-content:flex-end;
+  }
+}
+/* Hero atmosphere layers */
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+
+.heroAtmos{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* Soft depth gradient */
+.heroAtmos::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(900px 520px at 18% 24%, rgba(19,180,255,0.16), transparent 60%),
+    radial-gradient(700px 520px at 78% 18%, rgba(0,212,170,0.12), transparent 62%),
+    radial-gradient(900px 700px at 50% 85%, rgba(2,6,23,0.95), rgba(2,6,23,0.55) 45%, transparent 78%),
+    linear-gradient(180deg, rgba(2,6,23,0.92), rgba(2,6,23,0.22) 55%, rgba(2,6,23,0.90));
+  opacity:1;
+}
+
+/* Micro grain texture */
+.heroAtmos::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background-image:
+    linear-gradient(0deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 28px 28px, 22px 22px;
+  mix-blend-mode: overlay;
+  opacity:0.16;
+}
+
+/* Readability layer behind text */
+.heroRead{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(720px 520px at 22% 38%, rgba(2,6,23,0.82), transparent 70%),
+    radial-gradient(520px 420px at 42% 44%, rgba(2,6,23,0.62), transparent 72%);
+}
+
+/* Energy line under hero */
+.heroLine{
+  height:1px;
+  width:100%;
+  background:linear-gradient(90deg, rgba(19,180,255,0.0), rgba(19,180,255,0.80), rgba(0,212,170,0.55), rgba(19,180,255,0.0));
+  opacity:0.75;
+  margin-top:18px;
+}
+
+/* Hero copy tune */
+.heroTitle{
+  text-shadow: 0 0 22px rgba(0,0,0,0.35);
+}
+
+.heroSub{
+  color:rgba(154,169,192,0.92);
+}
+
+/* Whale blend upgrade */
+.whaleOverlay{
+  filter: blur(0.6px) contrast(1.06) saturate(0.92);
+  opacity:0.11;
+}
+
+/* Optional fade so whale never feels pasted */
+.whaleOverlay{
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 28%);
+  mask-image: linear-gradient(to top, transparent 0%, black 28%);
+}
+
+/* Desktop hero right panel refinement */
+@media (min-width:900px){
+  .heroGrid{
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+.hero .wrap{
+  position:relative;
+  z-index:2;
+}
+  </style>
+</head>
+
+<body>
+  <img class="whaleOverlay" id="whaleOverlay" src="assets/img/whale.png" alt="White Whale character" />
+
+  <div class="topbar">
+    <div class="wrap">
+      <div class="topbarInner">
+        <div class="brand">
+          <div class="brandMark" aria-hidden="true"></div>
+          <div class="brandText">White Whale Labs</div>
+        </div>
+
+        <div class="navDesktop">
+          <a href="#what">What we do</a>
+          <a href="#system">Secret sauce</a>
+          <a href="#limits">What we do not do</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="topActions">
+  <a class="btn" href="https://x.com/whitewhalelabs" target="_blank" rel="noopener noreferrer">X</a>
+  <button class="btn" id="copyTopCaBtn" type="button">CA</button>
+  <button class="btn btnPrimary" id="menuBtn" type="button">Menu</button>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="backdrop"></div>
+
+  <aside class="sidebar" id="sidebar" aria-hidden="true">
+    <div class="sidebarHeader">
+      <div class="sidebarTitle">White Whale Labs</div>
+      <button class="btn" id="closeBtn" type="button">Close</button>
+    </div>
+    <div class="sidebarBody">
+      <a class="sideLink" href="#what" dataClose="1">
+        What we do
+        <small>Mint rails, liquidity architecture, execution tooling, early phase operations</small>
+      </a>
+      <a class="sideLink" href="#system" dataClose="1">
+        Secret sauce
+        <small>Why structure matters and how we keep launches tradeable</small>
+      </a>
+      <a class="sideLink" href="#limits" dataClose="1">
+        What we do not do
+        <small>Clear boundaries and no performance promises</small>
+      </a>
+      <a class="sideLink" href="#contact" dataClose="1">
+        Contact
+        <small>Start a launch conversation</small>
+      </a>
+
+     <a href="https://x.com/whitewhalelabs" target="_blank" rel="noopener noreferrer" class="btn btnPrimary" style="text-align:center;">
+  Follow on X
+</a>
+        <button class="btn" type="button" id="copyLabsBtn">Copy contact line</button>
+      </div>
+    </div>
+  </aside>
+
+  <header class="hero" id="top">
+<div class="heroAtmos"></div>
+<div class="heroRead"></div>
+    <div class="wrap">
+      <div class="heroGrid">
+        <div>
+          <div class="kicker reveal">
+            
+            Boutique launch engineering
+          </div>
+
+          <div style="margin-top:14px;">
+            <div class="scanWrap revealScan" dataScan="1">
+              <h1 class="heroTitle scanText">
+                Tradeable launches. Cleaner distribution. Less extraction.
+              </h1>
+            </div>
+            <div class="scanUnderline" dataUnderline="1"></div>
+<div class="heroLine reveal"></div>
+          </div>
+
+          <p class="heroSub reveal" style="margin-top:14px;">
+            White Whale Labs designs and runs on chain launch systems that help reduce cheap supply capture, improve liquidity distribution, and keep charts tradeable without artificially capping upside.
+          </p>
+
+          <div class="ctaRow reveal">
+            <a class="btn btnPrimary" href="#contact">Apply for a launch</a>
+          
+          </div>
+
+          <div class="metaRow reveal">
+            <div class="metaPill">Launch rails</div>
+            <div class="metaPill">Distribution aware liquidity</div>
+            <div class="metaPill">Rules based execution</div>
+          </div>
+        </div>
+
+        <div class="card reveal" style="background:rgba(2,6,23,0.35);">
+          <div class="cardTitle">What we optimize for</div>
+          <div class="cardBody">
+            We are not selling up only. We are selling better structure: tradeable charts, smarter distribution, and less extractive mechanics without capping upside.
+          </div>
+          <div class="divider"></div>
+          <div class="cardBody">
+            If you want a launch that can survive day one pressure, start with the rails.
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="what">
+    <div class="wrap">
+      <div class="scanWrap revealScan" dataScan="1">
+        <h2 class="sectionTitle scanText">What White Whale Labs does</h2>
+      </div>
+      <div class="scanUnderline" dataUnderline="1"></div>
+
+      <p class="sectionLead reveal" style="margin-top:12px;">
+        We design the on chain rails behind launches so projects are less likely to get dominated by snipers and bundled insiders on day one.
+      </p>
+
+      <div class="gridCards">
+        <div class="card reveal">
+          <div class="cardTitle">Mint and launch infrastructure</div>
+          <div class="cardBody">Token creation, setup, deployment support, and launch readiness planning.</div>
+        </div>
+
+        <div class="card reveal">
+          <div class="cardTitle">Liquidity architecture</div>
+          <div class="cardBody">Structure built for tradeability and staged distribution, tuned for early price discovery.</div>
+        </div>
+
+        <div class="card reveal">
+          <div class="cardTitle">Rules based execution</div>
+          <div class="cardBody">Tooling to support orderly markets and reduce common extractive behavior patterns.</div>
+        </div>
+
+        <div class="card reveal">
+          <div class="cardTitle">Early phase operations</div>
+          <div class="cardBody">Monitoring, adjustments, and coordination during the first hours and days.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sectionAlt" id="system">
+    <div class="wrap">
+      <div class="scanWrap revealScan" dataScan="1">
+        <h2 class="sectionTitle scanText">Most launches fail at market structure</h2>
+      </div>
+      <div class="scanUnderline" dataUnderline="1"></div>
+
+      <div class="twoCol">
+        <div class="card reveal">
+          <div class="cardTitle">Why it breaks</div>
+          <div class="cardBody">
+            Early market structure is fragile. Cheap supply is easy to capture, liquidity gets shaped poorly, and traders are conditioned by the same extraction playbook on repeat.
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="cardTitle">What we built</div>
+          <div class="cardBody">
+            White Whale Labs built a proprietary system that balances distribution and liquidity so markets stay engaging without hard ceilings on upside. The goal is not to eliminate volatility. The goal is to make extraction harder and tradeability easier.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="limits">
+    <div class="wrap">
+      <div class="scanWrap revealScan" dataScan="1">
+        <h2 class="sectionTitle scanText">What we do not do</h2>
+      </div>
+      <div class="scanUnderline" dataUnderline="1"></div>
+
+      <div class="card reveal" style="margin-top:12px;">
+        <ul class="dontList">
+          <li>We do not promise price performance.</li>
+          <li>We do not sell investments or provide investment advice.</li>
+          <li>We do not guarantee protection from every adversarial strategy.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+  <section class="section sectionAlt" id="contact">
+    <div class="wrap">
+      <div class="scanWrap revealScan" dataScan="1">
+        <h2 class="sectionTitle scanText">Contact</h2>
+      </div>
+      <div class="scanUnderline" dataUnderline="1"></div>
+
+      <p class="sectionLead reveal" style="margin-top:12px;">
+        The fastest way to start is a short message with your chain, launch window, and desired market structure constraints.
+      </p>
+
+      <div class="gridCards">
+        <div class="card reveal">
+          <div class="cardTitle">X</div>
+          <div class="cardBody">
+            <a href="https://x.com/whitewhalelabs" target="_blank" rel="noreferrer">x.com/whitewhalelabs</a>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="cardTitle">White Whale meme</div>
+          <div class="cardBody">
+            <a href="https://x.com/whitewhalememe" target="_blank" rel="noreferrer">x.com/whitewhalememe</a>
+            <div style="margin-top:10px;">
+              <button class="btn btnPrimary" type="button" id="copyCaBtn">Copy meme CA</button>
+            </div>
+            <div style="margin-top:10px; color:var(--muted); font-size:12px; line-height:1.5;">
+              a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="wrap">
+
+    <div class="footerRow">
+
+      <div class="footerLeft">
+        <div class="brandText">White Whale Labs</div>
+
+        <div class="footerTag">
+          Launch engineering for tradeable markets
+        </div>
+
+
+        <div class="footerLegal">
+          © 2026 White Whale Labs. All rights reserved.
+        </div>
+
+        <div class="footerDisclosure">
+          Disclosure: White Whale Labs provides technical and operational launch engineering services, including smart contract deployment support, liquidity architecture design, and rules based execution tooling. White Whale Labs is not a broker, dealer, exchange, investment adviser, or financial institution. Nothing on this site is an offer to sell or a solicitation to buy any security or financial product, and nothing here is investment, legal, or tax advice. Digital assets are volatile and markets may be adversarial. Past performance is not indicative of future results. You are solely responsible for your decisions and compliance with applicable laws.
+        </div>
+      </div>
+
+      <div class="footerRight">
+
+        <div class="footerLinks">
+          <a href="#what">What we do</a>
+          <a href="#system">Secret sauce</a>
+          <a href="#limits">Limits</a>
+        </div>
+
+        <div class="footerExternal">
+          <a href="https://x.com/whitewhalelabs" target="_blank" rel="noopener noreferrer">
+            X / @whitewhalelabs
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+  <div class="toast" id="toast">Copied</div>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const sidebar = document.getElementById("sidebar");
+    const backdrop = document.getElementById("backdrop");
+    const toast = document.getElementById("toast");
+
+    function openMenu(){
+      sidebar.classList.add("open");
+      backdrop.classList.add("open");
+      sidebar.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu(){
+      sidebar.classList.remove("open");
+      backdrop.classList.remove("open");
+      sidebar.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+
+    menuBtn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    backdrop.addEventListener("click", closeMenu);
+
+    sidebar.addEventListener("click", (e) => {
+      const t = e.target;
+      if(t && t.getAttribute && t.getAttribute("dataClose") === "1"){
+        closeMenu();
+      }
+    });
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      window.setTimeout(() => toast.classList.remove("show"), 1700);
+    }
+
+    async function copyText(value, msg){
+      try{
+        await navigator.clipboard.writeText(value);
+        showToast(msg || "Copied");
+      }catch(err){
+        const el = document.createElement("textarea");
+        el.value = value;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        showToast(msg || "Copied");
+      }
+    }
+
+    const memeCa = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump";
+const copyTopCaBtn = document.getElementById("copyTopCaBtn");
+if(copyTopCaBtn){
+  copyTopCaBtn.addEventListener("click", () => copyText(memeCa, "CA copied"));
+}
+    const copyCaBtn = document.getElementById("copyCaBtn");
+    if(copyCaBtn){
+      copyCaBtn.addEventListener("click", () => copyText(memeCa, "Meme CA copied"));
+    }
+
+    const copyLabsBtn = document.getElementById("copyLabsBtn");
+    if(copyLabsBtn){
+      copyLabsBtn.addEventListener("click", () => copyText("White Whale Labs launch consult", "Copied"));
+    }
+
+    /* Smooth scroll for same page anchors */
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if(!a) return;
+      const href = a.getAttribute("href") || "";
+      if(href.startsWith("#")){
+        e.preventDefault();
+        const el = document.querySelector(href);
+        if(el){
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        closeMenu();
+      }
+    });
+
+    /* Reveal animations */
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    const scanEls = Array.from(document.querySelectorAll("[dataScan='1']"));
+    const underlineEls = Array.from(document.querySelectorAll("[dataUnderline='1']"));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    revealEls.forEach(el => io.observe(el));
+    scanEls.forEach(el => io.observe(el));
+
+    const ioUnder = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          ioUnder.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    underlineEls.forEach(el => ioUnder.observe(el));
+
+    /* Whale gentle drift on scroll */
+    const whale = document.getElementById("whaleOverlay");
+    let lastY = 0;
+    let ticking = false;
+
+    function onScroll(){
+      lastY = window.scrollY || 0;
+      if(!ticking){
+        window.requestAnimationFrame(() => {
+          const drift = Math.min(48, lastY * -0.04);
+          whale.style.transform = "translate3d(0," + drift + "px,0)";
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
