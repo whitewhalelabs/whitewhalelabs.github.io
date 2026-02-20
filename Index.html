@@ -320,24 +320,20 @@
     }
     .footerLinks a:hover{ color:var(--ink); }
 
-    .whaleOverlay{
+   .whaleOverlay{
   position:fixed;
   bottom:-40px;
   left:-30px;
-
   width:300px;
   max-width:65vw;
-
   opacity:0.12;
-
   pointer-events:none;
   z-index:5;
-
   transform:translate3d(0,0,0);
+  filter: blur(0.6px) contrast(1.06) saturate(0.92);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 28%);
+  mask-image: linear-gradient(to top, transparent 0%, black 28%);
 }
-      filter: blur(0.5px) contrast(1.05);
-      transform:translate3d(0,0,0);
-    }
 
     /* Sidebar */
     .backdrop{
@@ -745,8 +741,7 @@
 </head>
 
 <body>
-  <img class="whaleOverlay" id="whaleOverlay" src="assets/img/whale.png" alt="White Whale character" />
-
+  <img class="whaleOverlay" id="whaleOverlay" src="whale.jpeg" alt="White Whale character" />
   <div class="topbar">
     <div class="wrap">
       <div class="topbarInner">
