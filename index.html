@@ -413,7 +413,160 @@
       flex-direction:column;
       gap:10px;
     }
+.projectsCard{
+  padding:18px 16px;
+}
 
+.projectsHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.projectsScroll{
+  margin-top:12px;
+  max-height:260px;
+  overflow:auto;
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding-top:6px;
+  padding-right:6px;
+}
+
+.projectRow{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+  padding:12px 6px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  font-size:14px;
+}
+
+.projectName{
+  font-family:var(--fontHead);
+  font-weight:700;
+  flex:1;
+  min-width:0;
+}
+
+.projectTicker{
+  color:var(--accent0);
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.projectDivider{
+  color:rgba(255,255,255,0.25);
+  font-size:10px;
+  white-space:nowrap;
+}
+
+.projectVersion{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.projectRow:hover{
+  background:rgba(255,255,255,0.02);
+}
+
+.projectsScroll::-webkit-scrollbar{
+  width:8px;
+}
+.projectsScroll::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.04);
+}
+.projectsScroll::-webkit-scrollbar-thumb{
+  background:rgba(19,180,255,0.25);
+}
+.projectsScroll::-webkit-scrollbar-thumb:hover{
+  background:rgba(19,180,255,0.35);
+}
+    .packagesGrid{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.packageCard{
+  border:1px solid var(--line);
+  background:var(--panel);
+  padding:18px 16px;
+}
+
+.packageHead{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.packageName{
+  font-family:var(--fontHead);
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:-0.02em;
+}
+
+.packagePrice{
+  font-family:var(--fontHead);
+  font-weight:800;
+  font-size:14px;
+  color:rgba(248,250,252,0.92);
+  opacity:0.9;
+  white-space:nowrap;
+}
+
+.packageLine{
+  height:1px;
+  background:rgba(255,255,255,0.06);
+  margin-top:12px;
+}
+
+.packageList{
+  margin:14px 0 0 0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+}
+
+.packageList li{
+  margin-bottom:8px;
+}
+
+.packageCta{
+  margin-top:14px;
+}
+
+.packageCta .btn{
+  width:100%;
+  justify-content:center;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 14px;
+  font-size:14px;
+}
+
+.packageFeatured{
+  border-color: rgba(19,180,255,0.28);
+  box-shadow: 0 0 0 1px rgba(19,180,255,0.08);
+}
+
+@media (min-width:900px){
+  .packagesGrid{
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+  .packageCta .btn{
+    width:auto;
+  }
+}
     /* Toast */
     .toast{
       position:fixed;
@@ -740,6 +893,43 @@
   position:relative;
   z-index:2;
 }
+    .applyForm{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.formRow{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.formLabel{
+  font-weight:800;
+  font-size:13px;
+  color: rgba(248,250,252,0.92);
+}
+
+.formInput{
+  width:100%;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(2,6,23,0.35);
+  color: var(--ink);
+  padding:12px 12px;
+  font-size:14px;
+  outline:none;
+}
+
+.formInput:focus{
+  border-color: rgba(19,180,255,0.55);
+}
+
+.formHint{
+  color: rgba(154,169,192,0.85);
+  font-size:12px;
+  line-height:1.5;
+}
   </style>
 </head>
 
@@ -756,13 +946,14 @@
         <div class="navDesktop">
           <a href="#what">What we do</a>
           <a href="#system">Secret sauce</a>
+          <a href="#projects">Projects</a>
+          <a href="#packages">Launch packages</a>
           <a href="#limits">What we do not do</a>
           <a href="#contact">Contact</a>
         </div>
 
         <div class="topActions">
   <a class="btn" href="https://x.com/whitewhalelabs" target="_blank" rel="noopener noreferrer">X</a>
-  <button class="btn" id="copyTopCaBtn" type="button">CA</button>
   <button class="btn btnPrimary" id="menuBtn" type="button">Menu</button>
 </div>
       </div>
@@ -785,6 +976,14 @@
         Secret sauce
         <small>Why structure matters and how we keep launches tradeable</small>
       </a>
+      <a class="sideLink" href="#projects" dataClose="1">
+  Projects
+  <small>Deployed systems and iterations</small>
+</a>
+      <a class="sideLink" href="#packages" dataClose="1">
+  Launch packages
+  <small>Bronze, Silver, Gold</small>
+</a>
       <a class="sideLink" href="#limits" dataClose="1">
         What we do not do
         <small>Clear boundaries and no performance promises</small>
@@ -915,7 +1114,41 @@
         </div>
       </div>
     </div>
-  </section>
+  <section class="section" id="projects">
+  <div class="wrap">
+    <div class="scanWrap revealScan" dataScan="1">
+      <h2 class="sectionTitle scanText">Projects</h2>
+    </div>
+    <div class="scanUnderline" dataUnderline="1"></div>
+
+    <p class="sectionLead reveal" style="margin-top:12px;">
+      A growing list of projects shipped and system versions deployed.
+    </p>
+
+    <div class="card reveal projectsCard" style="margin-top:14px;">
+      <div class="projectsHeader">
+        <div class="cardTitle">Project log</div>
+      </div>
+
+      <div class="projectsScroll">
+
+        <div class="projectRow">
+          <span class="projectName">White Whale</span>
+          <span class="projectTicker">$WHITEWHALE</span>
+          <span class="projectDivider">•</span>
+          <span class="projectVersion">V1</span>
+        </div>
+
+        <div class="projectRow">
+          <span class="projectName">Until</span>
+          <span class="projectTicker">$UNTIL</span>
+          <span class="projectDivider">•</span>
+          <span class="projectVersion">V2</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <section class="section" id="limits">
     <div class="wrap">
@@ -946,24 +1179,62 @@
       </p>
 
       <div class="gridCards">
-        <div class="card reveal">
-          <div class="cardTitle">X</div>
-          <div class="cardBody">
-            <a href="https://x.com/whitewhalelabs" target="_blank" rel="noreferrer">x.com/whitewhalelabs</a>
-          </div>
-        </div>
+        <div class="card reveal" style="margin-top:14px;">
+  <form id="applyForm" class="applyForm"
+        action="https://formspree.io/f/abcdwxyz"
+        method="POST"
+        enctype="multipart/form-data">
 
-        <div class="card reveal">
-          <div class="cardTitle">White Whale meme</div>
-          <div class="cardBody">
-            <a href="https://x.com/whitewhalememe" target="_blank" rel="noreferrer">x.com/whitewhalememe</a>
-            <div style="margin-top:10px;">
-              <button class="btn btnPrimary" type="button" id="copyCaBtn">Copy meme CA</button>
-            </div>
-            <div style="margin-top:10px; color:var(--muted); font-size:12px; line-height:1.5;">
-              a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump
-            </div>
-          </div>
+    <div class="formRow">
+      <label class="formLabel" for="package">Package</label>
+      <select class="formInput" id="package" name="package" required>
+        <option value="" disabled selected>Select a package</option>
+        <option value="Bronze">Bronze</option>
+        <option value="Silver">Silver</option>
+        <option value="Gold">Gold</option>
+      </select>
+    </div>
+
+    <div class="formRow">
+      <label class="formLabel" for="email">Email</label>
+      <input class="formInput" id="email" name="email" type="email" placeholder="you@domain.com" required />
+    </div>
+
+    <div class="formRow">
+      <label class="formLabel" for="website">Project website</label>
+      <input class="formInput" id="website" name="website" type="url" placeholder="https://yourproject.com" required />
+    </div>
+
+    <div class="formRow">
+      <label class="formLabel" for="xpage">X page</label>
+      <input class="formInput" id="xpage" name="xpage" type="url" placeholder="https://x.com/yourproject" required />
+    </div>
+
+    <div class="formRow">
+      <label class="formLabel" for="image">Project image</label>
+      <input class="formInput" id="image" name="image" type="file" accept="image/*" required />
+      <div class="formHint" id="fileHint">Upload a logo or key art.</div>
+    </div>
+
+    <div class="formRow">
+      <label class="formLabel" for="desc">Description</label>
+      <textarea class="formInput" id="desc" name="description" rows="4"
+                placeholder="What is the project and what is the launch goal" required></textarea>
+    </div>
+
+    <div class="formRow">
+      <label class="formLabel" for="why">Why should we select your project for a WWL launch</label>
+      <textarea class="formInput" id="why" name="why" rows="5"
+                placeholder="Why should we choose your project and what does clean distribution mean to you" required></textarea>
+    </div>
+
+    <div class="formRow">
+      <button class="btn btnPrimary" type="submit" id="submitBtn">Submit application</button>
+      <div class="formHint" id="submitHint">You will receive a confirmation after submit.</div>
+    </div>
+
+  </form>
+</div>
         </div>
       </div>
       </div>
@@ -1143,6 +1414,56 @@ if(copyTopCaBtn){
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+    const packageSelect = document.getElementById("package");
+const packageBtns = Array.from(document.querySelectorAll(".packageBtn"));
+
+function goToContact(){
+  const el = document.getElementById("contact");
+  if(el){
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+packageBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const pkg = btn.getAttribute("dataPackage") || "";
+    if(packageSelect){
+      packageSelect.value = pkg;
+    }
+    closeMenu();
+    goToContact();
+  });
+});
+    const applyForm = document.getElementById("applyForm");
+const submitHint = document.getElementById("submitHint");
+
+if(applyForm){
+  applyForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(applyForm);
+
+    try{
+      const res = await fetch(applyForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { "Accept": "application/json" }
+      });
+
+      if(res.ok){
+        applyForm.reset();
+        if(submitHint){
+          submitHint.textContent = "Submitted. We will review and respond.";
+        }
+        showToast("Application submitted");
+      }else{
+        showToast("Submission failed. Try again.");
+      }
+    }catch(err){
+      showToast("Network error. Try again.");
+    }
+  });
+}
   </script>
 </body>
 </html>
