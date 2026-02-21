@@ -930,6 +930,98 @@
   font-size:12px;
   line-height:1.5;
 }
+    /* =========================
+   TIER COLORS
+========================= */
+
+.tierBronze{
+  --tierColor: #c17b42;
+  --tierGlow: rgba(193,123,66,0.35);
+}
+
+.tierSilver{
+  --tierColor: #bfc7d5;
+  --tierGlow: rgba(191,199,213,0.35);
+}
+
+.tierGold{
+  --tierColor: #ffd700;
+  --tierGlow: rgba(255,215,0,0.35);
+}
+
+/* =========================
+   CARD STYLING
+========================= */
+
+.tierBronze,
+.tierSilver,
+.tierGold{
+  border-color: var(--tierColor);
+  box-shadow: 0 0 0px var(--tierGlow);
+  transition: box-shadow 0.4s ease;
+}
+
+/* subtle pulse */
+@keyframes tierPulse {
+  0%{ box-shadow: 0 0 6px var(--tierGlow); }
+  50%{ box-shadow: 0 0 18px var(--tierGlow); }
+  100%{ box-shadow: 0 0 6px var(--tierGlow); }
+}
+
+.tierBronze,
+.tierSilver,
+.tierGold{
+  animation: tierPulse 3.5s ease-in-out infinite;
+}
+
+/* =========================
+   TEXT COLOR
+========================= */
+
+.tierBronze .packageName,
+.tierBronze .packagePrice{
+  color: var(--tierColor);
+}
+
+.tierSilver .packageName,
+.tierSilver .packagePrice{
+  color: var(--tierColor);
+}
+
+.tierGold .packageName,
+.tierGold .packagePrice{
+  color: var(--tierColor);
+}
+
+/* =========================
+   BUTTON STYLING (SAFE)
+========================= */
+
+.tierBronze .packageBtn,
+.tierSilver .packageBtn,
+.tierGold .packageBtn{
+  border-color: var(--tierColor);
+  color: var(--tierColor);
+  background: transparent;
+}
+
+/* button glow */
+.tierBronze .packageBtn:hover,
+.tierSilver .packageBtn:hover,
+.tierGold .packageBtn:hover{
+  background: var(--tierGlow);
+  box-shadow: 0 0 12px var(--tierGlow);
+}
+
+/* =========================
+   OPTIONAL: HOVER INTENSITY
+========================= */
+
+.tierBronze:hover,
+.tierSilver:hover,
+.tierGold:hover{
+  box-shadow: 0 0 22px var(--tierGlow);
+}
   </style>
 </head>
 
@@ -1166,7 +1258,7 @@
 
     <div class="packagesGrid">
 
-      <div class="packageCard reveal">
+      <div class="packageCard reveal tierBronze">
         <div class="packageHead">
           <div class="packageName">Bronze</div>
           <div class="packagePrice">Pricing soon</div>
@@ -1184,7 +1276,7 @@
         </div>
       </div>
 
-      <div class="packageCard reveal packageFeatured">
+     <div class="packageCard reveal packageFeatured tierSilver">
         <div class="packageHead">
           <div class="packageName">Silver</div>
           <div class="packagePrice">Pricing soon</div>
@@ -1202,7 +1294,7 @@
         </div>
       </div>
 
-      <div class="packageCard reveal">
+      <div class="packageCard reveal tierGold">
         <div class="packageHead">
           <div class="packageName">Gold</div>
           <div class="packagePrice">Pricing soon</div>
