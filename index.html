@@ -974,6 +974,47 @@
   animation: tierPulse 3.5s ease-in-out infinite;
 }
 
+    .systemRow{
+  margin-top:12px;
+}
+
+.sysLabel{
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.sysBar{
+  height:10px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  overflow:hidden;
+}
+
+.sysFill{
+  height:100%;
+  width:60%;
+  background:linear-gradient(90deg, rgba(19,180,255,0.6), rgba(0,212,170,0.4));
+  animation:breathe 2400ms ease-in-out infinite;
+  transform-origin:left center;
+}
+
+.b1{ width:78%; }
+.b2{ width:70%; }
+.b3{ width:82%; }
+.b4{ width:75%; }
+
+@keyframes breathe{
+  0%{ transform:scaleX(0.96); opacity:0.8; }
+  50%{ transform:scaleX(1.02); opacity:1; }
+  100%{ transform:scaleX(0.96); opacity:0.8; }
+}
+
+.sysText{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:6px;
+}
 /* =========================
    TEXT COLOR
 ========================= */
@@ -1134,16 +1175,55 @@
           </div>
         </div>
 
-        <div class="card reveal" style="background:rgba(2,6,23,0.35);">
-          <div class="cardTitle">What we optimize for</div>
-          <div class="cardBody">
-            We are not selling up only. We are selling better structure: tradeable charts, smarter distribution, and less extractive mechanics without capping upside.
-          </div>
-          <div class="divider"></div>
-          <div class="cardBody">
-            If you want a launch that can survive day one pressure, start with the rails.
-          </div>
-        </div>
+        <div class="card reveal systemCard">
+
+  <div class="cardTitle">What we optimize for</div>
+
+  <div class="cardBody" style="margin-top:6px;">
+    We structure launches to stay tradeable under pressure.
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="systemRow">
+    <div class="sysLabel">Distribution</div>
+    <div class="sysBar">
+      <div class="sysFill b1"></div>
+    </div>
+    <div class="sysText">Controlled release</div>
+  </div>
+
+  <div class="systemRow">
+    <div class="sysLabel">Liquidity</div>
+    <div class="sysBar">
+      <div class="sysFill b2"></div>
+    </div>
+    <div class="sysText">Balanced depth</div>
+  </div>
+
+  <div class="systemRow">
+    <div class="sysLabel">Extraction</div>
+    <div class="sysBar">
+      <div class="sysFill b3"></div>
+    </div>
+    <div class="sysText">Reduced advantage</div>
+  </div>
+
+  <div class="systemRow">
+    <div class="sysLabel">Tradeability</div>
+    <div class="sysBar">
+      <div class="sysFill b4"></div>
+    </div>
+    <div class="sysText">Two sided flow</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="cardBody" style="font-weight:800;">
+    If early structure fails, the chart never recovers.
+  </div>
+
+</div>
       </div>
     </div>
   </header>
