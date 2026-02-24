@@ -993,16 +993,37 @@
 
 .sysFill{
   height:100%;
-  width:60%;
   background:linear-gradient(90deg, rgba(19,180,255,0.6), rgba(0,212,170,0.4));
-  animation:breathe 2400ms ease-in-out infinite;
   transform-origin:left center;
 }
 
-.b1{ width:55%; }
-.b2{ width:72%; }
-.b3{ width:7%; }
-.b4{ width:80%; }
+/* Distribution (mid, stable) */
+.b1{
+  width:58%;
+  animation:breathe 4200ms ease-in-out infinite;
+  animation-delay:0ms;
+}
+
+/* Liquidity (strong, responsive) */
+.b2{
+  width:76%;
+  animation:breathe 3400ms ease-in-out infinite;
+  animation-delay:600ms;
+}
+
+/* Extraction (low, unstable) */
+.b3{
+  width:8%;
+  animation:breathe 2600ms ease-in-out infinite;
+  animation-delay:1200ms;
+}
+
+/* Tradeability (high, steady) */
+.b4{
+  width:78%;
+  animation:breathe 4800ms ease-in-out infinite;
+  animation-delay:1800ms;
+}
 
 @keyframes breathe{
   0%{ transform:scaleX(0.96); opacity:0.8; }
