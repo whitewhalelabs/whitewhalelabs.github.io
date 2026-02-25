@@ -456,11 +456,6 @@
   white-space:nowrap;
 }
 
-.projectDivider{
-  color:rgba(255,255,255,0.25);
-  font-size:10px;
-  white-space:nowrap;
-}
 
 .projectVersion{
   color:var(--muted);
@@ -484,6 +479,92 @@
 }
 .projectsScroll::-webkit-scrollbar-thumb:hover{
   background:rgba(19,180,255,0.35);
+}
+    .projectThumbSm{
+  width:34px;
+  height:34px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(2,6,23,0.35);
+  object-fit:cover;
+  flex:0 0 auto;
+}
+
+.projectRow{
+  cursor:pointer;
+  user-select:none;
+}
+
+.projectChevron{
+  color:rgba(255,255,255,0.35);
+  font-size:14px;
+  margin-left:6px;
+  transform:rotate(0deg);
+  transition:transform 200ms ease, color 200ms ease;
+}
+
+.projectRow.open{
+  background:rgba(255,255,255,0.02);
+}
+
+.projectRow.open .projectChevron{
+  transform:rotate(90deg);
+  color:rgba(255,255,255,0.75);
+}
+
+.projectDrop{
+  display:none;
+  padding:12px 6px 14px 6px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(2,6,23,0.22);
+}
+
+.projectDrop.open{
+  display:block;
+}
+
+.projectSummary{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.projectActionsRow{
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.projectActionsRow .btn{
+  padding:10px 12px;
+  font-size:13px;
+}
+    .projectRow{
+  align-items:flex-start;
+}
+
+.projectMain{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.projectTopLine{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  min-width:0;
+}
+
+.projectName{
+  flex:0 1 auto;
+  min-width:0;
+}
+
+.projectVersion{
+  white-space:normal;
 }
     .packagesGrid{
   margin-top:18px;
@@ -1345,21 +1426,72 @@
         <div class="cardTitle">Project Log</div>
       </div>
 
-      <div class="projectsScroll">
+      <div class="projectsScroll" id="projectsScroll">
 
-        <div class="projectRow">
-          <span class="projectName">The White Whale</span>
-          <span class="projectTicker">$WHITEWHALE</span>
-          <span class="projectDivider">•</span>
-          <span class="projectVersion">V1 (Foundational)</span>
+        <div class="projectRow" dataProject="whitewhale">
+  <img class="projectThumbSm" src="whitewhale.png" alt="The White Whale thumbnail" />
+
+  <div class="projectMain">
+    <div class="projectTopLine">
+      <span class="projectName">The White Whale</span>
+      <span class="projectTicker">$WHITEWHALE</span>
+    </div>
+
+    <div class="projectVersionLine">
+      <span class="projectVersion">V1 (Foundational)</span>
+    </div>
+  </div>
+
+  <span class="projectChevron">›</span>
+</div>
+
+        <div class="projectDrop" dataDrop="whitewhale">
+          <div class="projectSummary">
+            Summary placeholder pending approval.
+          </div>
+
+          <div class="projectActionsRow">
+            <a class="btn" href="https://whitewhalememe.com/" target="_blank" rel="noopener noreferrer">Website</a>
+            <a class="btn" href="https://x.com/whitewhalelabs" target="_blank" rel="noopener noreferrer">X</a>
+            <button class="btn btnPrimary projectCopyBtn" type="button"
+              dataCa="a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump">
+              Copy CA
+            </button>
+          </div>
         </div>
 
-        <div class="projectRow">
-          <span class="projectName">Until</span>
-          <span class="projectTicker">$UNTIL</span>
-          <span class="projectDivider">•</span>
-          <span class="projectVersion">V2 (Improved Model)</span>
+        <div class="projectRow" dataProject="until">
+  <img class="projectThumbSm" src="until.png" alt="Until thumbnail" />
+
+  <div class="projectMain">
+    <div class="projectTopLine">
+      <span class="projectName">Until</span>
+      <span class="projectTicker">$UNTIL</span>
+    </div>
+
+    <div class="projectVersionLine">
+      <span class="projectVersion">V2 (Improved Model)</span>
+    </div>
+  </div>
+
+  <span class="projectChevron">›</span>
+</div>
+
+        <div class="projectDrop" dataDrop="until">
+          <div class="projectSummary">
+            Summary placeholder pending approval.
+          </div>
+
+          <div class="projectActionsRow">
+            <a class="btn" href="https://untilwhat.com" target="_blank" rel="noopener noreferrer">Website</a>
+            <a class="btn" href="https://x.com/untilthememe" target="_blank" rel="noopener noreferrer">X</a>
+            <button class="btn btnPrimary projectCopyBtn" type="button"
+              dataCa="59nzDoRyJ1QcLcFYFs4GVdeZ4qUEb16T2KNuHPWMpump">
+              Copy CA
+            </button>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -1609,7 +1741,40 @@
         showToast(msg || "Copied");
       }
     }
+const projectRows = Array.from(document.querySelectorAll(".projectRow"));
 
+projectRows.forEach((row) => {
+  row.addEventListener("click", () => {
+    const key = row.getAttribute("dataProject") || "";
+    if(!key) return;
+
+    const drop = document.querySelector('.projectDrop[dataDrop="' + key + '"]');
+    if(!drop) return;
+
+    const isOpen = row.classList.contains("open");
+
+    projectRows.forEach((r) => r.classList.remove("open"));
+    Array.from(document.querySelectorAll(".projectDrop")).forEach((d) => d.classList.remove("open"));
+
+    if(!isOpen){
+      row.classList.add("open");
+      drop.classList.add("open");
+    }
+  });
+});
+
+const projectCopyBtns = Array.from(document.querySelectorAll(".projectCopyBtn"));
+
+projectCopyBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const ca = btn.getAttribute("dataCa") || "";
+    if(ca){
+      copyText(ca, "CA copied");
+    }
+  });
+});
     const memeCa = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump";
 const copyTopCaBtn = document.getElementById("copyTopCaBtn");
 if(copyTopCaBtn){
