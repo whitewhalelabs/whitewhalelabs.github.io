@@ -1893,7 +1893,6 @@ if(applyForm){
   applyForm.reset();
 
   const submitBtn = document.getElementById("submitBtn");
-
   if(submitBtn){
     submitBtn.textContent = "Submitted";
     submitBtn.disabled = true;
@@ -1906,13 +1905,8 @@ if(applyForm){
   }
 
   showToast("Application submitted");
-}
-        showToast("Submission failed. Try again.");
-      }
-    }catch(err){
-      showToast("Network error. Try again.");
-    }
-  });
+}else{
+  showToast("Submission failed. Try again.");
 }
   </script>
 </body>
