@@ -1890,23 +1890,28 @@ if(applyForm){
       });
 
       if(res.ok){
-  applyForm.reset();
+        applyForm.reset();
 
-  const submitBtn = document.getElementById("submitBtn");
-  if(submitBtn){
-    submitBtn.textContent = "Submitted";
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = "0.6";
-    submitBtn.style.cursor = "default";
-  }
+        const submitBtn = document.getElementById("submitBtn");
+        if(submitBtn){
+          submitBtn.textContent = "Submitted";
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = "0.6";
+          submitBtn.style.cursor = "default";
+        }
 
-  if(submitHint){
-    submitHint.textContent = "Submitted. We will review and respond.";
-  }
+        if(submitHint){
+          submitHint.textContent = "Submitted. We will review and respond.";
+        }
 
-  showToast("Application submitted");
-}else{
-  showToast("Submission failed. Try again.");
+        showToast("Application submitted");
+      }else{
+        showToast("Submission failed. Try again.");
+      }
+    }catch(err){
+      showToast("Network error. Try again.");
+    }
+  });
 }
   </script>
 </body>
