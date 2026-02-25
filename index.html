@@ -75,10 +75,11 @@
     }
 
     .brandMark{
-      width:10px;
-      height:10px;
-      background:linear-gradient(90deg, var(--accent0), var(--accent1));
-    }
+  width:16px;
+  height:16px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
 
     .brandText{
       font-family:var(--fontHead);
@@ -1174,7 +1175,7 @@
     <div class="wrap">
       <div class="topbarInner">
         <div class="brand">
-          <div class="brandMark" aria-hidden="true"></div>
+          <img class="brandMark" src="whale.png" alt="White Whale Labs logo" />
           <div class="brandText">White Whale Labs</div>
         </div>
 
