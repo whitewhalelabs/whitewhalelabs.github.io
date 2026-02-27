@@ -1,0 +1,23 @@
+[
+  {
+    "key": "whitewhale",
+    "name": "The White Whale",
+    "ticker": "$WHITEWHALE",
+    "version": "V1 (Foundational)",
+    "thumb": "whitewhale.png",
+    "summary": "Summary placeholder pending approval.",
+    "website": "https://whitewhalememe.com/",
+    "x": "https://x.com/whitewhalelabs",
+    "ca": "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump"
+  },
+  {
+    "key": "until",
+    "name": "Until",
+    "ticker": "$UNTIL",
+    "version": "V2 (Improved Model)",
+    "thumb": "until.png",
+    "summary": "Summary placeholder pending approval.",
+    "website": "https://untilwhat.com",
+    "x": "https://x.com/untilthememe",
+    "ca": "59nzDoRyJ1QcLcFYFs4GVdeZ4qUEb16T2KNuHPWMpump"
+  }
