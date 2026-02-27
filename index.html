@@ -1428,73 +1428,7 @@
         <div class="cardTitle">Project Log</div>
       </div>
 
-      <div class="projectsScroll" id="projectsScroll">
-
-        <div class="projectRow" dataProject="whitewhale">
-  <img class="projectThumbSm" src="whitewhale.png" alt="The White Whale thumbnail" />
-
-  <div class="projectMain">
-    <div class="projectTopLine">
-      <span class="projectName">The White Whale</span>
-      <span class="projectTicker">$WHITEWHALE</span>
-    </div>
-
-    <div class="projectVersionLine">
-      <span class="projectVersion">V1 (Foundational)</span>
-    </div>
-  </div>
-
-  <span class="projectChevron">›</span>
-</div>
-
-        <div class="projectDrop" dataDrop="whitewhale">
-          <div class="projectSummary">
-            Summary placeholder pending approval.
-          </div>
-
-          <div class="projectActionsRow">
-            <a class="btn" href="https://whitewhalememe.com/" target="_blank" rel="noopener noreferrer">Website</a>
-            <a class="btn" href="https://x.com/whitewhalelabs" target="_blank" rel="noopener noreferrer">X</a>
-            <button class="btn btnPrimary projectCopyBtn" type="button"
-              dataCa="a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump">
-              Copy CA
-            </button>
-          </div>
-        </div>
-
-        <div class="projectRow" dataProject="until">
-  <img class="projectThumbSm" src="until.png" alt="Until thumbnail" />
-
-  <div class="projectMain">
-    <div class="projectTopLine">
-      <span class="projectName">Until</span>
-      <span class="projectTicker">$UNTIL</span>
-    </div>
-
-    <div class="projectVersionLine">
-      <span class="projectVersion">V2 (Improved Model)</span>
-    </div>
-  </div>
-
-  <span class="projectChevron">›</span>
-</div>
-
-        <div class="projectDrop" dataDrop="until">
-          <div class="projectSummary">
-            Summary placeholder pending approval.
-          </div>
-
-          <div class="projectActionsRow">
-            <a class="btn" href="https://untilwhat.com" target="_blank" rel="noopener noreferrer">Website</a>
-            <a class="btn" href="https://x.com/untilthememe" target="_blank" rel="noopener noreferrer">X</a>
-            <button class="btn btnPrimary projectCopyBtn" type="button"
-              dataCa="59nzDoRyJ1QcLcFYFs4GVdeZ4qUEb16T2KNuHPWMpump">
-              Copy CA
-            </button>
-          </div>
-        </div>
-
-      </div>
+      <div class="projectsScroll" id="projectsScroll"></div>
     </div>
   </div>
 </section>
@@ -1743,40 +1677,89 @@
         showToast(msg || "Copied");
       }
     }
-const projectRows = Array.from(document.querySelectorAll(".projectRow"));
+async function loadProjects(){
+  const wrap = document.getElementById("projectsScroll");
+  if(!wrap) return;
 
-projectRows.forEach((row) => {
-  row.addEventListener("click", () => {
-    const key = row.getAttribute("dataProject") || "";
-    if(!key) return;
+  try{
+    const res = await fetch("projects.json", { cache: "no-store" });
+    if(!res.ok) throw new Error("Failed to load projects.json");
+    const projects = await res.json();
 
-    const drop = document.querySelector('.projectDrop[dataDrop="' + key + '"]');
-    if(!drop) return;
+    wrap.innerHTML = projects.map((p) => {
+      const safeKey = (p.key || p.name || "").toString().trim().toLowerCase().replace(/\s+/g,"");
+      return `
+        <div class="projectRow" dataProject="${safeKey}">
+          <img class="projectThumbSm" src="${p.thumb}" alt="${p.name} thumbnail" />
+          <div class="projectMain">
+            <div class="projectTopLine">
+              <span class="projectName">${p.name}</span>
+              <span class="projectTicker">${p.ticker}</span>
+            </div>
+            <div class="projectVersionLine">
+              <span class="projectVersion">${p.version}</span>
+            </div>
+          </div>
+          <span class="projectChevron">›</span>
+        </div>
 
-    const isOpen = row.classList.contains("open");
+        <div class="projectDrop" dataDrop="${safeKey}">
+          <div class="projectSummary">${p.summary || ""}</div>
+          <div class="projectActionsRow">
+            <a class="btn" href="${p.website}" target="_blank" rel="noopener noreferrer">Website</a>
+            <a class="btn" href="${p.x}" target="_blank" rel="noopener noreferrer">X</a>
+            <button class="btn btnPrimary projectCopyBtn" type="button" dataCa="${p.ca}">
+              Copy CA
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
 
-    projectRows.forEach((r) => r.classList.remove("open"));
-    Array.from(document.querySelectorAll(".projectDrop")).forEach((d) => d.classList.remove("open"));
+    wireProjectInteractions();
+  }catch(err){
+    wrap.innerHTML = `<div class="projectSummary">Projects failed to load.</div>`;
+  }
+}
 
-    if(!isOpen){
-      row.classList.add("open");
-      drop.classList.add("open");
-    }
+function wireProjectInteractions(){
+  const projectRows = Array.from(document.querySelectorAll(".projectRow"));
+
+  projectRows.forEach((row) => {
+    row.addEventListener("click", () => {
+      const key = row.getAttribute("dataProject") || "";
+      if(!key) return;
+
+      const drop = document.querySelector('.projectDrop[dataDrop="' + key + '"]');
+      if(!drop) return;
+
+      const isOpen = row.classList.contains("open");
+
+      projectRows.forEach((r) => r.classList.remove("open"));
+      Array.from(document.querySelectorAll(".projectDrop")).forEach((d) => d.classList.remove("open"));
+
+      if(!isOpen){
+        row.classList.add("open");
+        drop.classList.add("open");
+      }
+    });
   });
-});
 
-const projectCopyBtns = Array.from(document.querySelectorAll(".projectCopyBtn"));
+  const projectCopyBtns = Array.from(document.querySelectorAll(".projectCopyBtn"));
 
-projectCopyBtns.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const ca = btn.getAttribute("dataCa") || "";
-    if(ca){
-      copyText(ca, "CA copied");
-    }
+  projectCopyBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const ca = btn.getAttribute("dataCa") || "";
+      if(ca){
+        copyText(ca, "CA copied");
+      }
+    });
   });
-});
+}
+
+loadProjects();
     const memeCa = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump";
 const copyTopCaBtn = document.getElementById("copyTopCaBtn");
 if(copyTopCaBtn){
