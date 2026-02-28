@@ -47,7 +47,90 @@ body::before{
     radial-gradient(900px 700px at 50% 90%, rgba(2,6,23,0.92), transparent 70%),
     linear-gradient(180deg, #020617 0%, #040a18 45%, #081024 100%);
 }
+/* Premium background grid system */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:1;
+  background:
+    /* glow nodes */
+    radial-gradient(circle at 18% 22%, rgba(19,180,255,0.10), transparent 18%),
+    radial-gradient(circle at 72% 28%, rgba(0,212,170,0.08), transparent 18%),
+    radial-gradient(circle at 46% 76%, rgba(19,180,255,0.06), transparent 22%),
 
+    /* grid lines */
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.008) 1px, transparent 1px),
+
+    /* subtle haze so it never looks harsh */
+    radial-gradient(900px 620px at 50% 30%, rgba(2,6,23,0.55), transparent 70%);
+
+  background-size:
+    auto,
+    auto,
+    auto,
+    44px 44px,
+    44px 44px,
+    auto;
+
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0;
+
+  animation: gridDrift 46s linear infinite;
+  transform: translate3d(0,0,0);
+}
+
+/* Scanline pass on top of grid */
+html::before{
+  content:"";
+  position:fixed;
+  inset:-40%;
+  z-index:-1;
+  pointer-events:none;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(19,180,255,0.05) 45%,
+    rgba(0,212,170,0.04) 55%,
+    transparent 100%
+  );
+
+  opacity:0.65;
+  transform: translate3d(-35%,0,0);
+  animation: scanPass 12s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+/* Animations */
+@keyframes gridDrift{
+  0%{ background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  100%{ background-position: 0 0, 0 0, 0 0, 44px 44px, 44px 44px, 0 0; }
+}
+
+@keyframes scanPass{
+  0%{ transform: translate3d(-55%,0,0); opacity:0.0; }
+  12%{ opacity:0.65; }
+  50%{ opacity:0.25; }
+  88%{ opacity:0.65; }
+  100%{ transform: translate3d(55%,0,0); opacity:0.0; }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce){
+  body::after,
+  html::before{
+    animation:none;
+  }
+}
     a{ color:inherit; text-decoration:none; }
     button{ font-family:inherit; }
 
