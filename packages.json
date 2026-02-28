@@ -1,0 +1,38 @@
+[
+  {
+    "key": "bronze",
+    "name": "Bronze",
+    "price": "Pricing Soon",
+    "featured": false,
+    "bullets": [
+      "Launch readiness review",
+      "Basic structure recommendations",
+      "Execution support window"
+    ],
+    "cta": "Apply With Bronze"
+  },
+  {
+    "key": "silver",
+    "name": "Silver",
+    "price": "Pricing Soon",
+    "featured": true,
+    "bullets": [
+      "Liquidity architecture planning",
+      "Rules based execution tooling",
+      "Early phase monitoring"
+    ],
+    "cta": "Apply With Silver"
+  },
+  {
+    "key": "gold",
+    "name": "Gold",
+    "price": "Pricing Soon",
+    "featured": false,
+    "bullets": [
+      "Full launch system design",
+      "Staged distribution plan",
+      "Operational support through day one"
+    ],
+    "cta": "Apply With Gold"
+  }
+]
