@@ -1459,64 +1459,7 @@ body::before{
       Choose a package and the application will auto select it.
     </p>
 
-    <div class="packagesGrid">
-
-      <div class="packageCard reveal tierBronze">
-        <div class="packageHead">
-          <div class="packageName">Bronze</div>
-          <div class="packagePrice">Pricing Soon</div>
-        </div>
-        <div class="packageLine"></div>
-        <ul class="packageList">
-          <li>Launch readiness review</li>
-          <li>Basic structure recommendations</li>
-          <li>Execution support window</li>
-        </ul>
-        <div class="packageCta">
-          <button class="btn btnPrimary packageBtn" type="button" dataPackage="Bronze">
-            Apply With Bronze
-          </button>
-        </div>
-      </div>
-
-     <div class="packageCard reveal packageFeatured tierSilver">
-        <div class="packageHead">
-          <div class="packageName">Silver</div>
-          <div class="packagePrice">Pricing Soon</div>
-        </div>
-        <div class="packageLine"></div>
-        <ul class="packageList">
-          <li>Liquidity architecture planning</li>
-          <li>Rules based execution tooling</li>
-          <li>Early phase monitoring</li>
-        </ul>
-        <div class="packageCta">
-          <button class="btn btnPrimary packageBtn" type="button" dataPackage="Silver">
-            Apply With Silver
-          </button>
-        </div>
-      </div>
-
-      <div class="packageCard reveal tierGold">
-        <div class="packageHead">
-          <div class="packageName">Gold</div>
-          <div class="packagePrice">Pricing Soon</div>
-        </div>
-        <div class="packageLine"></div>
-        <ul class="packageList">
-          <li>Full launch system design</li>
-          <li>Staged distribution plan</li>
-          <li>Operational support through day one</li>
-        </ul>
-        <div class="packageCta">
-          <button class="btn btnPrimary packageBtn" type="button" dataPackage="Gold">
-            Apply With Gold
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
+    <div class="packagesGrid" id="packagesGrid"></div>
 </section>
     
   <section class="section sectionAlt" id="contact">
@@ -1770,8 +1713,82 @@ function wireProjectInteractions(){
     });
   });
 }
+async function loadPackages(){
+  const wrap = document.getElementById("packagesGrid");
+  if(!wrap) return;
 
+  try{
+    const res = await fetch("packages.json", { cache: "no-store" });
+    if(!res.ok) throw new Error("Failed to load packages.json");
+    const packages = await res.json();
+
+    wrap.innerHTML = packages.map((p) => {
+      const key = (p.key || p.name || "").toString().trim();
+      const tierClass =
+        key.toLowerCase() === "bronze" ? "tierBronze" :
+        key.toLowerCase() === "silver" ? "tierSilver" :
+        key.toLowerCase() === "gold" ? "tierGold" : "";
+
+      const featuredClass = p.featured ? "packageFeatured" : "";
+
+      const bullets = Array.isArray(p.bullets) ? p.bullets : [];
+      const bulletHtml = bullets.map((b) => `<li>${b}</li>`).join("");
+
+      return `
+        <div class="packageCard reveal ${featuredClass} ${tierClass}">
+          <div class="packageHead">
+            <div class="packageName">${p.name || ""}</div>
+            <div class="packagePrice">${p.price || ""}</div>
+          </div>
+          <div class="packageLine"></div>
+          <ul class="packageList">
+            ${bulletHtml}
+          </ul>
+          <div class="packageCta">
+            <button class="btn btnPrimary packageBtn" type="button" dataPackage="${p.name || ""}">
+              ${p.cta || "Apply"}
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    bindPackageButtons();
+    revealNewElements();
+  }catch(err){
+    wrap.innerHTML = `<div class="card"><div class="cardBody">Packages failed to load.</div></div>`;
+  }
+}
+
+function bindPackageButtons(){
+  const packageSelect = document.getElementById("package");
+  const packageBtns = Array.from(document.querySelectorAll(".packageBtn"));
+
+  function goToContact(){
+    const el = document.getElementById("contact");
+    if(el){
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  packageBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const pkg = btn.getAttribute("dataPackage") || "";
+      if(packageSelect){
+        packageSelect.value = pkg;
+      }
+      closeMenu();
+      goToContact();
+    });
+  });
+}
+
+function revealNewElements(){
+  const newReveals = Array.from(document.querySelectorAll(".reveal:not(.in)"));
+  newReveals.forEach(el => io.observe(el));
+}
 loadProjects();
+loadPackages();
     const memeCa = "a3W4qutoEJA4232T2gwZUfgYJTetr96pU4SJMwppump";
 const copyTopCaBtn = document.getElementById("copyTopCaBtn");
 if(copyTopCaBtn){
