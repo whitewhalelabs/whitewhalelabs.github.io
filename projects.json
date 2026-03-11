@@ -20,5 +20,16 @@
     "website": "https://untilwhat.com",
     "x": "https://x.com/untilthememe",
     "ca": "59nzDoRyJ1QcLcFYFs4GVdeZ4qUEb16T2KNuHPWMpump"
+  },
+  {
+    "key": "new",
+    "name": "new",
+    "ticker": "$new",
+    "version": "V2 (Improved Model)",
+    "thumb": "new.png",
+    "summary": "summary",
+    "website": "https://website.com",
+    "x": "https://x.com/x",
+    "ca": "ca"
   }
 ]
